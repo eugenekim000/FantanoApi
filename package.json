@@ -1,0 +1,20 @@
+{
+  "name": "apiproject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js",
+    "lint": "eslint --fix --ext .js ."
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.5.8",
+    "husky": "^3.0.9",
+    "knex": "^0.20.0",
+    "nodemon": "^1.19.4",
+    "pg": "^7.12.1"
+  }
+}

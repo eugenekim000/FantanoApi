@@ -1,0 +1,4 @@
+/* OR a GraphQL Server that:
+serves up a basic HTML file that describes your API service
+Has multiple types to query
+Offers mutations to delete, add, or modify data */
