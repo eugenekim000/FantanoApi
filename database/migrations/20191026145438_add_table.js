@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .index();
 
-    t.text("ALBUM TITLE")
+    t.text("ALBUM_TITLE")
       .notNullable()
       .index();
     t.text("SCORE")

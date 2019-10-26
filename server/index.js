@@ -13,7 +13,7 @@ const schema = buildSchema(`
   }
   type Query {
     Fantanos: [fantano]
-    Fantano(artist: String!): String
+    Fantano(artist: String!): [fantano]
   }
   type Mutation {
     addReview(name: String): [fantano]
@@ -29,12 +29,14 @@ const root = {
     return Data.data;
   },
 
-  Fantano: artist => {
+  Fantano: request => {
+    let arr = [];
     for (let artistName of Data.data) {
-      if (artistName.ARTISTS.toLowercase() === artist.toLowerCase())
-        return artist;
+      if (artistName.ARTISTS === request.artist) arr.push(artistName);
     }
+    return arr;
   },
+
   addReview: request => {
     Data.data.push(request);
     return Data.data;
@@ -71,9 +73,6 @@ const root = {
         Data.data.splice(i, 1);
     }
     return Data.data;
-  },
-  Pokemon: request => {
-    return Data.data.find(pokemon => pokemon.name === request.name);
   }
 };
 
