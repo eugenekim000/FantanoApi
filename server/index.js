@@ -13,12 +13,63 @@ const schema = buildSchema(`
   }
   type Query {
     Fantanos: [fantano]
+    Fantano(artist: String!): String
+  }
+  type Mutation {
+    addReview(name: String): [fantano]
+    editReview(originalName: String, newName: String): [fantano]
+    editScore(album:String, newScore: String): fantano
+    deleteReview(name: String): [fantano]
   }
 `);
 
 // The root provides the resolver functions for each type of query or mutation.
 const root = {
   Fantanos: () => {
+    return Data.data;
+  },
+
+  Fantano: artist => {
+    for (let artistName of Data.data) {
+      if (artistName.ARTISTS.toLowercase() === artist.toLowerCase())
+        return artist;
+    }
+  },
+  addReview: request => {
+    Data.data.push(request);
+    return Data.data;
+  },
+
+  editReview: request => {
+    results = [];
+    for (const review of Data.data) {
+      if (review.ALBUM_TITLE === request.album) {
+        review.ALBUM_TITLE = request.newName;
+        results.push(review);
+      } else if (review.ARTISTS === request.originalName) {
+        review.ARTISTS = request.newName;
+        results.push(review);
+      }
+    }
+    return results;
+  },
+
+  editScore: request => {
+    for (const review of Data.data) {
+      if (review.ALBUM_TITLE === request.album) {
+        review.SCORE = request.newScore;
+        return review;
+      }
+    }
+    return "Cannot be found";
+  },
+
+  deleteReview: request => {
+    for (let i = 0; i < Data.data.length; i++) {
+      if (Data.data[i].ARTISTS === request.name) Data.data.splice(i, 1);
+      else if (Data.data[i].ALBUM_TITLE === request.name)
+        Data.data.splice(i, 1);
+    }
     return Data.data;
   },
   Pokemon: request => {
