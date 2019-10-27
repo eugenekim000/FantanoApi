@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("fantano", t => {
+  return knex.schema.createTable("Reviews", t => {
     t.increments().index();
 
     t.text("ARTISTS")
@@ -16,5 +16,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable("fantano");
+  return knex.schema.dropTable("Reviews");
 };

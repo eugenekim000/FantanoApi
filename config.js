@@ -6,8 +6,8 @@ module.exports = {
     connection: process.env.DB_URL || {
       host: process.env.DB_HOST || "127.0.0.1",
       port: process.env.DB_PORT || 5432,
-      database: process.env.DB_NAME || "fantano",
       user: process.env.DB_USER || "postgres",
+      database: process.env.DB_NAME || "fantano",
       password: process.env.DB_PASSWORD || "postgres"
     }
   },

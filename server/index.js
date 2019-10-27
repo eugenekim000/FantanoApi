@@ -3,6 +3,8 @@ const graphqlHTTP = require("express-graphql");
 const { buildSchema } = require("graphql");
 // The data below is mocked.
 const Data = require("/Users/Eugene/Desktop/apiproject/Tests/index");
+const config = "../database/knexfile.js";
+const knex = require("knex")(config);
 
 // The schema should model the full data object available.
 const schema = buildSchema(`
@@ -16,7 +18,7 @@ const schema = buildSchema(`
     Fantano(artist: String!): [fantano]
   }
   type Mutation {
-    addReview(name: String): [fantano]
+    addReview(artist:String, album:String, score:String) : [fantano]
     editReview(originalName: String, newName: String): [fantano]
     editScore(album:String, newScore: String): fantano
     deleteReview(name: String): [fantano]
@@ -25,8 +27,12 @@ const schema = buildSchema(`
 
 // The root provides the resolver functions for each type of query or mutation.
 const root = {
-  Fantanos: () => {
-    return Data.data;
+  Fantanos: async (req, res) => {
+    console.log(knex);
+    //res.status(200);
+    return await knex("Reviews")
+      .select()
+      .catch(error => console.log(error));
   },
 
   Fantano: request => {
@@ -38,9 +44,29 @@ const root = {
   },
 
   addReview: request => {
-    Data.data.push(request);
+    let obj = {
+      ARTISTS: request.artist,
+      ALBUM_TITLE: request.album,
+      SCORE: request.score
+    };
+    Data.data.push(obj);
+
     return Data.data;
   },
+
+  /*   addReview: request => {
+    //console.log(request);
+    knex("Reviews")
+      .returning("ARTISTS") // returns [id]
+      .insert([
+        {
+          ARTISTS: request.artist,
+          ALBUM_TITLE: request.album,
+          SCORE: request.score
+        }
+      ])
+      .catch(error => console.log(error));
+  }, */
 
   editReview: request => {
     results = [];
@@ -87,12 +113,19 @@ const app = express();
 */
 app.use(
   "/graphql",
+  express.json(),
   graphqlHTTP({
     schema,
     rootValue: root,
     graphiql: true
   })
 );
+
+const path = require("path");
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname + "../index.html"));
+});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Running a GraphQL API server at localhost:${PORT}/graphql`);
