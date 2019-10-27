@@ -1,18 +1,19 @@
 # FantanoApi
 
-Introduction
+[Introduction](#introduction)
+Api database based off Anthony Fantano's music reviews. Data includes artists, album name, and scores for each respective album. Anthony Fantano, forever!
 
-Environment
+[Environment](#Environment)
+
 
 Postgres
-You will need postgres installed. If you haven't installed it already, download and install the PostgresApp and verify its working by running the command psql in your terminal.
+You will need postgres installed. If you haven't installed it already, please download and install the PostgresApp.
 
 Create a database for this project by running:
 
     echo "CREATE DATABASE fantano;" | psql
 
 Installing Dependencies and Startup
-Example:
 
 To install dependencies:
 
@@ -33,3 +34,86 @@ To run tests:
 To run the app:
 
     yarn start
+    
+To run the app and refresh after each save:
+
+    yarn dev
+    
+###Listing Reviews
+You can list all reviews with the follow commands:
+
+          {
+            Fantanos{
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        
+You can list some reviews with the follow commands:
+
+          {
+            Fantano(artist:"Kendrick"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+
+###Adding Reviews
+
+Adding Reviews
+You can add reviews with the follow commands:
+
+          mutation{
+            addReview(artist: "Ko Gang", album: "Love Letter", score:"10"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        
+###Editing Reviews
+
+Editing Reviews
+You can edit Album Titles with the follow commands:
+
+          mutation{
+            editTitle(originalName:"Toxicity" newName:"Swagcity"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        
+You can edit Artists with the follow commands:
+
+            mutation{
+              editArtist(originalName:"DJ Khaled" newName:"DJ Terrible"){
+                ARTISTS
+                ALBUM_TITLE
+                SCORE
+              }
+            }
+          
+You can edit Album Score with the follow commands:
+
+              mutation{
+                editScore(album:"To Pimp A Butterfly" newScore:"Infinity"){
+                  ARTISTS
+                  ALBUM_TITLE
+                  SCORE
+                }
+              }
+              
+###Removing Reviews
+Removing Reviews
+You can remove reviews with the follow commands:
+
+          mutation{
+            deleteReview(name:"Logic"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
