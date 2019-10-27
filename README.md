@@ -1,9 +1,9 @@
 # FantanoApi
 
-[Introduction](#introduction)
+### Introduction
 Api database based off Anthony Fantano's music reviews. Data includes artists, album name, and scores for each respective album. Anthony Fantano, forever!
 
-[Environment](#Environment)
+### Environment
 
 
 Postgres
@@ -39,7 +39,7 @@ To run the app and refresh after each save:
 
     yarn dev
     
-###Listing Reviews
+### Listing Reviews
 You can list all reviews with the follow commands:
 
           {
@@ -60,7 +60,7 @@ You can list some reviews with the follow commands:
             }
           }
 
-###Adding Reviews
+### Adding Reviews
 
 Adding Reviews
 You can add reviews with the follow commands:
@@ -73,7 +73,7 @@ You can add reviews with the follow commands:
             }
           }
         
-###Editing Reviews
+### Editing Reviews
 
 Editing Reviews
 You can edit Album Titles with the follow commands:
@@ -106,7 +106,7 @@ You can edit Album Score with the follow commands:
                 }
               }
               
-###Removing Reviews
+### Removing Reviews
 Removing Reviews
 You can remove reviews with the follow commands:
 
@@ -117,3 +117,10 @@ You can remove reviews with the follow commands:
               SCORE
             }
           }
+          
+### Credits
+
+Credits to Reddit User /u/Opst3 for compiling the data.
+Credits to Anthony Fantano, aka TheNeedleDrop, for his contribution as a music critic.
+
+Anthony Fantano, Forever!
