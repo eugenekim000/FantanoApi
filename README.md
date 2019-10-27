@@ -112,10 +112,10 @@ You can edit Album Score with the follow commands:
               
 ### Removing Reviews
 Removing Reviews
-You can remove reviews with the follow commands:
+You can remove reviews based off album titles with the follow commands:
 
           mutation{
-            deleteReview(name:"Logic"){
+            deleteReview(name:"Dummy Boy"){
               ARTISTS
               ALBUM_TITLE
               SCORE
