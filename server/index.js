@@ -18,10 +18,11 @@ const schema = buildSchema(`
     Fantano(artist: String!): [fantano]
   }
   type Mutation {
-    addReview(artist:String, album:String, score:String) : [fantano]
-    editReview(originalName: String, newName: String): [fantano]
+    addReview(artist:String, album:String, score:String) : fantano
+    editTitle(originalName: String, newName: String): fantano
+    editArtist(originalName: String, newName: String): fantano
     editScore(album:String, newScore: String): fantano
-    deleteReview(name: String): [fantano]
+    deleteReview(name: String): fantano
   }
 `);
 
@@ -34,15 +35,32 @@ const root = {
       .catch(error => console.log(error));
   },
 
-  Fantano: request => {
+  /*   Fantano: request => {
     let arr = [];
     for (let artistName of Data.data) {
       if (artistName.ARTISTS === request.artist) arr.push(artistName);
     }
     return arr;
+  }, */
+
+  Fantano: request => {
+    console.log(request.artist);
+    return knex("Reviews")
+      .select()
+      .where({ ARTISTS: request.artist });
   },
 
   addReview: request => {
+    return knex("Reviews").insert([
+      {
+        ARTISTS: request.artist,
+        ALBUM_TITLE: request.album,
+        SCORE: request.score
+      }
+    ]);
+  },
+
+  /*   addReview: request => {
     let obj = {
       ARTISTS: request.artist,
       ALBUM_TITLE: request.album,
@@ -51,23 +69,20 @@ const root = {
     Data.data.push(obj);
 
     return Data.data;
-  },
-
-  /*   addReview: request => {
-    //console.log(request);
-    knex("Reviews")
-      .returning("ARTISTS") // returns [id]
-      .insert([
-        {
-          ARTISTS: request.artist,
-          ALBUM_TITLE: request.album,
-          SCORE: request.score
-        }
-      ])
-      .catch(error => console.log(error));
   }, */
 
-  editReview: request => {
+  editTitle: request => {
+    return knex("Reviews")
+      .where({ ALBUM_TITLE: request.originalName })
+      .update({ ALBUM_TITLE: request.newName });
+  },
+
+  editArtist: request => {
+    return knex("Reviews")
+      .where({ ARTISTS: request.originalName })
+      .update({ ARTISTS: request.newName });
+  },
+  /*   editReview: request => {
     results = [];
     for (const review of Data.data) {
       if (review.ALBUM_TITLE === request.album) {
@@ -79,9 +94,14 @@ const root = {
       }
     }
     return results;
-  },
+  }, */
 
   editScore: request => {
+    return knex("Reviews")
+      .where({ ALBUM_TITLE: request.album })
+      .update({ SCORE: request.newScore });
+  },
+  /*   editScore: request => {
     for (const review of Data.data) {
       if (review.ALBUM_TITLE === request.album) {
         review.SCORE = request.newScore;
@@ -89,16 +109,22 @@ const root = {
       }
     }
     return "Cannot be found";
-  },
+  }, */
 
   deleteReview: request => {
+    return knex("Reviews")
+      .where({ ALBUM_TITLE: request.name })
+      .del();
+  }
+
+  /*   deleteReview: request => {
     for (let i = 0; i < Data.data.length; i++) {
       if (Data.data[i].ARTISTS === request.name) Data.data.splice(i, 1);
       else if (Data.data[i].ALBUM_TITLE === request.name)
         Data.data.splice(i, 1);
     }
     return Data.data;
-  }
+  } */
 };
 
 // Start your express server!
@@ -122,7 +148,7 @@ app.use(
 
 const path = require("path");
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "../index.html"));
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
 
 const PORT = process.env.PORT || 4000;
