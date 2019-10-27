@@ -148,8 +148,10 @@ app.use(
 
 const path = require("path");
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
+  res.sendFile(path.join(__dirname + "/../index.html"));
 });
+
+app.use(express.static(path.join(__dirname, "/../public/style.css")));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

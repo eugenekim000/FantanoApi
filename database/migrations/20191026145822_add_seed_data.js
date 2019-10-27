@@ -14,8 +14,8 @@ exports.up = function(knex, promise) {
       ARTISTS: "Cannibal Ox",
       ALBUM_TITLE: "The Cold Vein",
       SCORE: "CLASSIC"
-    }
-    /*   {
+    },
+    {
       ARTISTS: "Sleater-Kinney",
       ALBUM_TITLE: "The Woods",
       SCORE: "CLASSIC"
@@ -1174,8 +1174,8 @@ exports.up = function(knex, promise) {
     {
       ARTISTS: "Lauryn Hill",
       ALBUM_TITLE: "The Miseducation of Lauryn Hill",
-      SCORE: "classic" */
-    /*     },
+      SCORE: "classic"
+    },
     {
       ARTISTS: "Michael Jackson",
       ALBUM_TITLE: "Thriller",
@@ -2880,8 +2880,8 @@ exports.up = function(knex, promise) {
     {
       ARTISTS: "$uicideBoy$",
       ALBUM_TITLE: "Radical $uicide",
-      SCORE: "none" */
-    /*     },
+      SCORE: "none"
+    },
     {
       ARTISTS: "Gucci Mane",
       ALBUM_TITLE: "Everybody Looking",
@@ -9983,7 +9983,7 @@ exports.up = function(knex, promise) {
       ARTISTS: "Gorillaz",
       ALBUM_TITLE: "Plastic Beach",
       SCORE: 7
-    } */
+    }
   ];
 
   return knex("Reviews").insert(data);
