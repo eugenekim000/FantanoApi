@@ -3,8 +3,8 @@ const graphqlHTTP = require("express-graphql");
 const { buildSchema } = require("graphql");
 // The data below is mocked.
 const Data = require("/Users/Eugene/Desktop/apiproject/Tests/index");
-const config = "../database/knexfile.js";
-const knex = require("knex")(config);
+const config = require("../config.js");
+const knex = require("knex")(config.db);
 
 // The schema should model the full data object available.
 const schema = buildSchema(`
@@ -27,10 +27,9 @@ const schema = buildSchema(`
 
 // The root provides the resolver functions for each type of query or mutation.
 const root = {
-  Fantanos: async (req, res) => {
-    console.log(knex);
+  Fantanos: () => {
     //res.status(200);
-    return await knex("Reviews")
+    return knex("Reviews")
       .select()
       .catch(error => console.log(error));
   },

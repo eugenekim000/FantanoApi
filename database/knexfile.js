@@ -3,12 +3,7 @@ const config = require("../config");
 
 module.exports = {
   client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    database: "fantano",
-    password: "postgres"
-  },
+  connection: config.db.connection,
   pool: {
     min: 2,
     max: 10
