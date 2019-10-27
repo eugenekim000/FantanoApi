@@ -39,6 +39,10 @@ To run the app and refresh after each save:
 
     yarn dev
     
+To run the test environment, please refer to:
+    
+    http://localhost:4000/graphql
+    
 ### Listing Reviews
 You can list all reviews with the follow commands:
 
