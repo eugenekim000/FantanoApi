@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>title</title>
+    <link rel="stylesheet" href="public/style.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <a href="https://www.youtube.com/user/theneedledrop">
+      <img src="needle-logo.png" alt="Anthony Fantano in his natural habitat"
+    /></a>
+    <div class="Introduction">
+      <h2>Introduction</h2>
+      Api database based off Anthony Fantano's music reviews. Data includes
+      artists, album name, and scores for each respective album. Anthony
+      Fantano, forever!
+    </div>
+
+    <div class="possible_action listing">
+      <h2>Listing Reviews</h2>
+      You can <b>list</b> all reviews with the follow commands:
+      <pre><code>
+          {
+            Fantanos{
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        </code></pre>
+      You can list <b>some</b> reviews with the follow commands:
+      <pre><code>
+          {
+            Fantano(artist:"Kendrick"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        </code></pre>
+    </div>
+    <div class="possible_action adding">
+      <h2>Adding Reviews</h2>
+      You can <b>add</b> reviews with the follow commands:
+      <pre><code>
+          mutation{
+            addReview(artist: "Ko Gang", album: "Love Letter", score:"10"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        </code></pre>
+    </div>
+    <div class="possible_action editing">
+      <h2>Editing Reviews</h2>
+      You can <b>edit Album Titles</b> with the follow commands:
+      <pre><code>
+          mutation{
+            editTitle(originalName:"Toxicity" newName:"Swagcity"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        </code></pre>
+
+      You can <b>edit Artists</b> with the follow commands:
+      <pre><code>
+            mutation{
+              editArtist(originalName:"DJ Khaled" newName:"DJ Terrible"){
+                ARTISTS
+                ALBUM_TITLE
+                SCORE
+              }
+            }
+          </code></pre>
+
+      You can <b>edit Album Score</b> with the follow commands:
+      <pre><code>
+              mutation{
+                editScore(album:"To Pimp A Butterfly" newScore:"Infinity"){
+                  ARTISTS
+                  ALBUM_TITLE
+                  SCORE
+                }
+              }
+            </code></pre>
+    </div>
+    <div class="possible_action removing">
+      <h2>Removing Reviews</h2>
+      You can <b>remove</b> reviews with the follow commands:
+      <pre><code>
+          mutation{
+            deleteReview(name:"Logic"){
+              ARTISTS
+              ALBUM_TITLE
+              SCORE
+            }
+          }
+        </code></pre>
+    </div>
+  </body>
+</html>
